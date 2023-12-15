@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-#subtitle: 
+subtitle: <a href='https://uwaterloo.ca/'>University of Waterloo</a>; <a href='https://vectorinstitute.ai/'>Vector Institute</a>;
 
 profile:
   align: right
