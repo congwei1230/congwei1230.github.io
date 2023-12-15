@@ -2,20 +2,8 @@
 ---
 <!-- _layouts/bib.html -->
       <div class="row">
-        {%- if site.enable_publication_thumbnails -%}
-        <div class="col-sm-2 {% if entry.preview %}preview{% else %}abbr{% endif %}">
-        {%- if entry.preview -%}
-          {% if entry.preview contains '://' -%}
-          <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
-          {%- else -%}
-            {%- assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' -%}
-            {% include figure.html
-            path=entry_path
-            class="preview z-depth-1 rounded"
-            zoomable=false
-            alt=entry.preview -%}
-          {%- endif -%}
-        {%- elsif entry.abbr -%}
+
+        <div class="col-sm-2 abbr">
           {%- if site.data.venues[entry.abbr] -%}
             {%- assign venue_style = nil -%}
             {%- if site.data.venues[entry.abbr].color != blank -%}
@@ -25,12 +13,10 @@
           {%- else -%}
             <abbr class="badge">{{entry.abbr}}</abbr>
           {%- endif -%}
-        {%- endif -%}
         </div>
-        {%- endif -%}
 
         <!-- Entry bib key -->
-        <div id="{{entry.key}}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
+        <div id="{{entry.key}}" class="col-sm-8">
         <!-- Title -->
         <div class="title">{{entry.title}}</div>
         <!-- Author -->
@@ -188,12 +174,9 @@
             <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
           {%- endif %}
           </div>
-          {% if site.enable_publication_badges %}
-          {% assign entry_has_altmetric_badge = entry.altmetric or entry.doi or  entry.eprint or entry.pmid or entry.isbn %}
-          {% assign entry_has_dimensions_badge = entry.dimensions or entry.doi or entry.pmid %}
-          {% if entry_has_altmetric_badge or entry_has_dimensions_badge %}
+          {% if site.badges %}
           <div class="badges">
-            {%- if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
+            {%- if site.badges.altmetric_badge %}
             <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"
               {% if entry.eprint %}
                 data-arxiv-id="{{ entry.eprint }}"
@@ -208,7 +191,7 @@
               {% endif %}
               ></span>
             {%- endif %}
-            {%- if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
+            {%- if site.badges.dimensions_badge %}
               <span class="__dimensions_badge_embed__"
               {% if entry.doi %}
                 data-doi="{{ entry.doi }}"
@@ -220,7 +203,6 @@
               data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
             {%- endif %}
           </div>
-          {%- endif %}
           {%- endif %}
 
           {% if entry.abstract -%}
@@ -237,4 +219,16 @@
           </div>
           {%- endif %}
         </div>
+        <div class="col-sm-2 preview">
+          {% if entry.preview contains '://' -%}
+          <img data-zoomable class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+          {%- else -%}
+            {%- assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' -%}
+            {% include figure.html
+            path=entry_path
+            class="preview z-depth-1 rounded"
+            zoomable=true
+            alt=entry.preview -%}
+          {%- endif -%}
+          </div>
       </div>
