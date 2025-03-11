@@ -133,3 +133,17 @@ h2 {
 span.highlight {
   background-color: #ffffd0;
 }
+
+.clustrmaps-wrapper {
+  width: 170px;   /* Set desired width */
+  height: 140px;  /* Set desired height */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Adjust the inner element (which the script injects) */
+.clustrmaps-wrapper > div {
+  transform: scale(0.75);      /* Adjust the scale factor as needed */
+  transform-origin: top left;  /* Ensure scaling starts at the top left corner */
+  width: 133%;  /* Optionally adjust width to cover the container after scaling */
+}
